@@ -84,6 +84,13 @@ typedef enum {
 } hmc5983_dataRate_t;
 
 typedef enum {
+  HMC5983_SAMPLEAVERAGE_8     = 0b11,
+  HMC5983_SAMPLEAVERAGE_4     = 0b10,
+  HMC5983_SAMPLEAVERAGE_2     = 0b01,
+  HMC5983_SAMPLEAVERAGE_1     = 0b00
+} hmc5983_sampleAverages_t;
+
+typedef enum {
   HMC5983_RANGE_8_1GA     = 0b111,
   HMC5983_RANGE_5_6GA     = 0b110,
   HMC5983_RANGE_4_7GA     = 0b101,
@@ -111,6 +118,8 @@ class HMC5983 {
     hmc5983_mode_t getMeasurementMode(void);
     void  setDataRate(hmc5983_dataRate_t dataRate);
     hmc5983_dataRate_t getDataRate(void);
+    void  setSampleAverages(hmc5983_sampleAverages_t sampleAverages);
+    hmc5983_sampleAverages_t getSampleAverages(void);
     
     double read();
     
