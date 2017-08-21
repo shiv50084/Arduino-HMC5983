@@ -23,10 +23,12 @@ bool HMC5983::begin(void (*ISR_callback)(), int D){
     return false;
   }
 
-  // set Gain Range
+  // Set Gain Range
   setRange(HMC5983_RANGE_8_1GA);
   // Set DataRate 220Hz ~4.5ms
   setDataRate(HMC5983_DATARATE_220HZ);
+  // Set number of samples to average
+  setSampleAverages(HMC5983_SAMPLEAVERAGE_2);
   // Set Mode
   setMeasurementMode(HMC5983_CONTINOUS);
 
@@ -115,6 +117,26 @@ hmc5983_dataRate_t HMC5983::getDataRate(void) {
     value >>= 2;
 
     return (hmc5983_dataRate_t)value;
+}
+
+void HMC5983::setSampleAverages(hmc5983_sampleAverages_t sampleAverages) {
+    uint8_t value;
+
+    value = readRegister8(HMC5983_REG_CONFIG_A);
+    value &= 0b10011111;
+    value |= (sampleAverages << 5);
+
+    writeRegister8(HMC5983_REG_CONFIG_A, value);
+}
+
+hmc5983_sampleAverages_t HMC5983::getSampleAverages(void) {
+    uint8_t value;
+
+    value = readRegister8(HMC5983_REG_CONFIG_A);
+    value &= 0b01100000;
+    value >>= 5;
+
+    return (hmc5983_sampleAverages_t)value;
 }
 
 // Write byte to register
