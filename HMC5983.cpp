@@ -169,7 +169,6 @@ uint8_t HMC5983::fastRegister8(uint8_t reg) {
   #else
       value = Wire.receive();
   #endif;
-  Wire.endTransmission();
 
   return value;
 }
@@ -193,7 +192,6 @@ uint8_t HMC5983::readRegister8(uint8_t reg) {
   #else
       value = Wire.receive();
   #endif;
-  Wire.endTransmission();
 
   return value;
 }
@@ -219,7 +217,6 @@ int16_t HMC5983::readRegister16(uint8_t reg) {
       uint8_t vha = Wire.receive();
       uint8_t vla = Wire.receive();
   #endif;
-  Wire.endTransmission();
 
   value = vha << 8 | vla;
 
