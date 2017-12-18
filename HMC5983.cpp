@@ -8,6 +8,9 @@
  * (c) 2016 Abel Romero, www.abelromero.com
  */
 
+// MISSING: EARTH DECLINATION ANGLE
+// In other words, we are not making any compensation for the earth's north pole location vs the magnetic measurement
+
 #include "HMC5983.h"
 #include <Wire.h>
 
@@ -63,11 +66,6 @@ following set of equations:
   Direction (y<0) = 270 - [arcTAN(x/y)]*180/PI
   Direction (y=0, x<0) = 180.0
   Direction (y=0, x>0) = 0.0
-
-MISSING : EARTH DECLINATION ANGLE
-
-In other words, we are not making any compensation for the earth's north pole location vs the magnetic measurement
-
 */
 
 void HMC5983::setRange(hmc5983_range_t range) {
