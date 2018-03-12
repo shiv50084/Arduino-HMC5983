@@ -223,12 +223,14 @@ int16_t HMC5983::readRegister16(uint8_t reg) {
 
 double HMC5983::read() {
   // the values for X, Y & Z must be read in X, Z & Y order.
-  byte X_MSB = readRegister8(HMC5983_REG_OUT_X_M);
-  byte X_LSB = readRegister8(HMC5983_REG_OUT_X_L);
-  byte Z_MSB = readRegister8(HMC5983_REG_OUT_Z_M);
-  byte Z_LSB = readRegister8(HMC5983_REG_OUT_Z_L);
-  byte Y_MSB = readRegister8(HMC5983_REG_OUT_Y_M);
-  byte Y_LSB = readRegister8(HMC5983_REG_OUT_Y_L);
+  writeRegister8(HMC5983_OUT_X_MSB, 0); // Select MSB X register
+  Wire.requestFrom(HMC5983_ADDRESS, 6);
+  byte X_MSB = Wire.read();
+  byte X_LSB = Wire.read();
+  byte Z_MSB = Wire.read();
+  byte Z_LSB = Wire.read();
+  byte Y_MSB = Wire.read();
+  byte Y_LSB = Wire.read();
 
   // compose byte for X, Y, Z's LSB & MSB 8bit registers
   double HX = (X_MSB << 8) + X_LSB;
